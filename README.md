@@ -186,34 +186,6 @@ full-colombiano/
 └── README.md
 ```
 
-## 🌐 Despliegue
-
-### Backend (Railway/Render)
-
-1. Crear cuenta en [Railway](https://railway.app) o [Render](https://render.com)
-2. Conectar repositorio de GitHub
-3. Configurar variables de entorno:
-   ```
-   DEBUG=False
-   SECRET_KEY=<tu-secret-key-segura>
-   ALLOWED_HOSTS=<tu-dominio>.railway.app
-   CORS_ALLOWED_ORIGINS=https://<tu-frontend>.vercel.app
-   ```
-4. El servicio detectará automáticamente Django
-
-### Frontend (Vercel)
-
-1. Crear cuenta en [Vercel](https://vercel.com)
-2. Importar repositorio
-3. Configurar:
-   - **Root Directory**: `frontend`
-   - **Build Command**: `npm run build`
-   - **Output Directory**: `dist`
-4. Agregar variable de entorno:
-   ```
-   VITE_API_URL=https://<tu-backend>.railway.app/api
-   ```
-
 ## 🔑 Credenciales de Prueba
 
 ### Vendedores (Frontend + API)
