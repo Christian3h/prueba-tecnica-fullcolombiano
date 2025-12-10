@@ -1,0 +1,21 @@
+from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from .models import User
+
+
+@admin.register(User)
+class UserAdmin(BaseUserAdmin):
+    """Admin para el modelo User extendido."""
+
+    list_display = ['email', 'username', 'first_name', 'last_name', 'is_staff', 'date_joined']
+    list_filter = ['is_staff', 'is_superuser', 'is_active', 'date_joined']
+    search_fields = ['email', 'username', 'first_name', 'last_name']
+    ordering = ['-date_joined']
+
+    fieldsets = BaseUserAdmin.fieldsets + (
+        ('Información adicional', {'fields': ('phone',)}),
+    )
+
+    add_fieldsets = BaseUserAdmin.add_fieldsets + (
+        ('Información adicional', {'fields': ('email', 'first_name', 'last_name', 'phone')}),
+    )
