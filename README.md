@@ -2,6 +2,12 @@
 
 Prueba técnica para el marketplace Full Colombiano. Aplicación full-stack con Django REST Framework (backend) y React (frontend).
 
+## 🌐 Aplicación en Vivo
+
+- **Frontend (React)**: https://prueba-tecnica-fullcolombiano.vercel.app
+- **Backend API**: https://prueba-tecnica-fullcolombiano.onrender.com/api
+- **Documentación Swagger**: https://prueba-tecnica-fullcolombiano.onrender.com/api/docs/
+
 ## 📋 Tabla de Contenidos
 
 - [Características](#-características)
@@ -130,30 +136,84 @@ El frontend estará disponible en: `http://localhost:5173`
 
 ## 📚 API Documentation
 
-Una vez el backend esté corriendo, puedes acceder a la documentación:
+**Aplicación en producción:**
+- **Swagger UI**: https://prueba-tecnica-fullcolombiano.onrender.com/api/docs/
+- **ReDoc**: https://prueba-tecnica-fullcolombiano.onrender.com/api/redoc/
+- **OpenAPI Schema**: https://prueba-tecnica-fullcolombiano.onrender.com/api/schema/
 
+**Desarrollo local:**
 - **Swagger UI**: http://localhost:8000/api/docs/
 - **ReDoc**: http://localhost:8000/api/redoc/
 - **OpenAPI Schema**: http://localhost:8000/api/schema/
 
 ### Endpoints Principales
 
-| Método | Endpoint | Descripción |
-|--------|----------|-------------|
-| POST | `/api/users/register/` | Registrar usuario |
-| POST | `/api/users/token/` | Obtener tokens JWT |
-| POST | `/api/users/token/refresh/` | Refrescar token |
-| GET | `/api/users/profile/` | Perfil del usuario |
-| GET | `/api/vendors/` | Listar vendedores |
-| POST | `/api/vendors/` | Crear perfil vendedor |
-| GET | `/api/vendors/me/` | Mi perfil vendedor |
-| GET | `/api/products/` | Listar productos |
-| POST | `/api/products/` | Crear producto |
-| GET | `/api/products/{id}/` | Detalle producto |
-| PATCH | `/api/products/{id}/` | Actualizar producto |
-| DELETE | `/api/products/{id}/` | Eliminar producto |
-| GET | `/api/products/my_products/` | Mis productos |
-| GET | `/api/products/by-vendor/{id}/` | Productos por vendedor |
+| Método | Endpoint | Descripción | Requiere Auth |
+|--------|----------|-------------|---------------|
+| POST | `/api/users/register/` | Registrar usuario | No |
+| POST | `/api/users/token/` | Obtener tokens JWT | No |
+| POST | `/api/users/token/refresh/` | Refrescar token | No |
+| GET | `/api/users/profile/` | Perfil del usuario | Sí |
+| GET | `/api/vendors/` | Listar vendedores | No |
+| POST | `/api/vendors/` | Crear perfil vendedor | Sí |
+| GET | `/api/vendors/me/` | Mi perfil vendedor | Sí |
+| GET | `/api/products/` | Listar productos | No |
+| POST | `/api/products/` | Crear producto | Sí (Vendedor) |
+| GET | `/api/products/{id}/` | Detalle producto | No |
+| PUT/PATCH | `/api/products/{id}/` | Actualizar producto | Sí (Solo dueño) |
+| DELETE | `/api/products/{id}/` | Eliminar producto | Sí (Solo dueño) |
+| GET | `/api/products/my_products/` | Mis productos | Sí (Vendedor) |
+| GET | `/api/products/by-vendor/{id}/` | Productos por vendedor | No |
+
+### 🔧 Cómo Editar/Eliminar Productos
+
+**Opción 1: Desde Swagger UI (Recomendado)**
+
+1. Ve a: https://prueba-tecnica-fullcolombiano.onrender.com/api/docs/
+2. Click en **"Authorize"** (candado arriba)
+3. Inicia sesión para obtener token:
+   - Click en `POST /api/users/token/`
+   - **Try it out**
+   - Body:
+     ```json
+     {
+       "email": "maria@fullcolombiano.com",
+       "password": "Colombia2024!"
+     }
+     ```
+   - **Execute**
+   - Copia el `access` token
+4. Pega el token en el campo de autorización: `Bearer tu-token-aqui`
+5. Click **Authorize**
+
+**Editar producto:**
+- `PATCH /api/products/{id}/` → Try it out → Modifica los campos → Execute
+
+**Eliminar producto:**
+- `DELETE /api/products/{id}/` → Try it out → Execute
+
+**Opción 2: Con cURL (Terminal)**
+
+```bash
+# 1. Obtener token
+curl -X POST https://prueba-tecnica-fullcolombiano.onrender.com/api/users/token/ \
+  -H "Content-Type: application/json" \
+  -d '{"email":"maria@fullcolombiano.com","password":"Colombia2024!"}'
+
+# 2. Editar producto (reemplaza TOKEN y ID)
+curl -X PATCH https://prueba-tecnica-fullcolombiano.onrender.com/api/products/1/ \
+  -H "Authorization: Bearer TOKEN_AQUI" \
+  -H "Content-Type: application/json" \
+  -d '{"price":50000}'
+
+# 3. Eliminar producto
+curl -X DELETE https://prueba-tecnica-fullcolombiano.onrender.com/api/products/1/ \
+  -H "Authorization: Bearer TOKEN_AQUI"
+```
+
+**Opción 3: Desde el Frontend (Futuro)**
+
+⚠️ Actualmente el frontend solo permite crear productos. Para editar/eliminar usa Swagger o la API directamente.
 
 ## 📁 Estructura del Proyecto
 
