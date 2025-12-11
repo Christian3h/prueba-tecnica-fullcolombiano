@@ -276,7 +276,19 @@ full-colombiano/
 
 ## 🔑 Credenciales de Prueba
 
-### Vendedores (Frontend + API)
+### Producción (Frontend + API desplegada)
+
+**Vendedor 1:**
+- **Email**: maria@fullcolombiano.com
+- **Password**: Colombia2024!
+
+**Vendedor 2:**
+- **Email**: carlos@fullcolombiano.com
+- **Password**: Colombia2024!
+
+> **Nota:** Puedes crear nuevas cuentas directamente desde el frontend en la sección de registro.
+
+### Desarrollo Local
 
 **Vendedor 1: Café del Eje**
 - **Email**: maria@fullcolombiano.com
@@ -290,14 +302,15 @@ full-colombiano/
 - **Negocio**: Artesanías Wayuu (3 productos artesanales)
 - **Ciudad**: Riohacha
 
-### Admin (Django Admin)
+**Admin (Django Admin - Solo Local):**
 - **Email**: admin@fullcolombiano.com
 - **Username**: admin
 - **Password**: admin123
+- **Acceso**: http://localhost:8000/admin/
 
-**Acceso al panel de administración**: http://localhost:8000/admin/
+> ⚠️ **Importante:** El admin solo funciona en desarrollo local. En producción, Render Free tier usa SQLite con filesystem efímero que se resetea en cada deploy. Los usuarios deben crearse desde el frontend o vía API.
 
-**Productos de prueba**: La base de datos incluye 6 productos colombianos (café y artesanías) listos para probar
+**Productos de prueba locales**: La base de datos local incluye 6 productos colombianos (café y artesanías) creados con el script `create_sample_data.py`
 
 ## 📝 Notas Adicionales
 
